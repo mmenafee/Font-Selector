@@ -16,7 +16,8 @@ public class FontSelector {
 	JComboBox fonts = new JComboBox(names);
 	String[] iBold ={"ITALIC","BOLD","PLAIN"};
 	JComboBox styles = new JComboBox(iBold);
-	
+	String[] num = {"12","14","16","18","20","22","24"};
+	JComboBox size = new JComboBox(num);
 	//constructor
 	public FontSelector(){
 		gui();
@@ -43,13 +44,15 @@ public class FontSelector {
 			public void actionPerformed(ActionEvent e){
 				String fo = fonts.getSelectedItem().toString();
 				String st = styles.getSelectedItem().toString();
-				lab.setFont(new Font(fo, Font.PLAIN, 15));
+				int si = Integer.valueOf((String)size.getSelectedItem());
+				lab.setFont(new Font(fo, Font.PLAIN, si));
 			}
 		});
 
 		
 		p.add(fonts);
 		p.add(styles);
+		p.add(size);
 		p.add(b1);
 		p.add(lab);
 		f.add(p);
