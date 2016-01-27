@@ -18,6 +18,15 @@ public class FontSelector {
 	JComboBox styles = new JComboBox(iBold);
 	String[] num = {"12","14","16","18","20","22","24"};
 	JComboBox size = new JComboBox(num);
+	String[] exam = {"The quick brown fox jumped over the lazy dog’s back.",
+			"Pack my box with five dozen liquor jugs.","Jackdaws love my big sphinx of quartz.",
+			"Mr. Jock, TV quiz PhD, bags few lynx.","abcdefghijklmnopqrstuvwxyz","ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"01234567890","€†™´¸¢©¤°÷½¼¾>¡¿«‘’<¯µ ·¬ªº¶±£»®§­¹²³ß×™¨¥","ÀÁÂÃÄÅÆÇÈÉ ÊËÌÍÎÏÐÑÒÓÔ ÕÖØÙÚÛÜÝÞÿ",
+			"àáâãäåæçèé êëìíîïðñòóô õöøùúûüýþÿ","!#$%&'()*+,-./:;<=>?@[^_z{|}~",
+			"uvw wW gq9 2z 5s il17|!j oO08 `' ;:,. m nn rn {[()]}u"
+	};
+	JComboBox examples = new JComboBox(exam);
+
 	//constructor
 	public FontSelector(){
 		gui();
@@ -44,8 +53,10 @@ public class FontSelector {
 			public void actionPerformed(ActionEvent e){
 				String fo = fonts.getSelectedItem().toString();
 				String st = styles.getSelectedItem().toString();
+				String ex = examples.getSelectedItem().toString();
 				int si = Integer.valueOf((String)size.getSelectedItem());
 				lab.setFont(new Font(fo, Font.PLAIN, si));
+				lab.setText(ex);
 			}
 		});
 
@@ -54,6 +65,7 @@ public class FontSelector {
 		p.add(styles);
 		p.add(size);
 		p.add(b1);
+		p.add(examples);
 		p.add(lab);
 		f.add(p);
 	}
