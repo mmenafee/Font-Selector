@@ -25,15 +25,17 @@ public class FontSelector {
 	public void gui(){
 		f = new JFrame("Font Selector");
 		f.setVisible(true);
-		f.setSize(600,400);
+		f.setSize(1000,1000);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		p = new JPanel(new GridBagLayout());
+		p.setLayout(new GridLayout(3,3,10,10));
+		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		p.setBackground(Color.GRAY);
 		
 		b1 = new JButton("Select");
-		lab = new JLabel("This is where font name goes");
-		lab.setFont(new Font("Chalkduster", Font.ITALIC, 12));
+		lab = new JLabel("The quick brown fox jumped over the lazy dog’s back.");
+		lab.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		
 		
 		b1.addActionListener(new ActionListener(){
@@ -41,22 +43,15 @@ public class FontSelector {
 			public void actionPerformed(ActionEvent e){
 				String fo = fonts.getSelectedItem().toString();
 				String st = styles.getSelectedItem().toString();
-				lab.setFont(new Font(fo, Font.PLAIN, 30));
+				lab.setFont(new Font(fo, Font.PLAIN, 15));
 			}
 		});
+
 		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.insets = new Insets(10,10,10,10);
-		c.gridx = 0;
-		c.gridy = 4;
-		p.add(lab,c);
-		c.gridx = 0;
-		c.gridy = 1;
-		p.add(fonts,c);
-		c.gridx = 0;
-		c.gridy = 2;
-		p.add(b1,c);
+		p.add(fonts);
+		p.add(styles);
+		p.add(b1);
+		p.add(lab);
 		f.add(p);
 	}
 	
