@@ -1,6 +1,7 @@
 import javax.swing.*; 
 import java.awt.*; 
 import java.awt.event.*; 
+import java.awt.GraphicsEnvironment;
 
 
 public class FontSelector { 
@@ -10,8 +11,11 @@ public class FontSelector {
 	private JButton b1;
 	private JLabel lab;
 	
-	String[] fonts = {"Times New Roman","Arial","Calibri","Georgia"};
-	JComboBox combo = new JComboBox(fonts);
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    String[] names = ge.getAvailableFontFamilyNames();
+	JComboBox fonts = new JComboBox(names);
+	String[] iBold ={"ITALIC","BOLD","PLAIN"};
+	JComboBox styles = new JComboBox(iBold);
 	
 	//constructor
 	public FontSelector(){
@@ -29,13 +33,15 @@ public class FontSelector {
 		
 		b1 = new JButton("Select");
 		lab = new JLabel("This is where font name goes");
+		lab.setFont(new Font("Chalkduster", Font.ITALIC, 12));
 		
 		
 		b1.addActionListener(new ActionListener(){
 		
 			public void actionPerformed(ActionEvent e){
-				String s = combo.getSelectedItem().toString();
-				lab.setText(s);
+				String fo = fonts.getSelectedItem().toString();
+				String st = styles.getSelectedItem().toString();
+				lab.setFont(new Font(fo, Font.PLAIN, 30));
 			}
 		});
 		
@@ -43,15 +49,14 @@ public class FontSelector {
 		
 		c.insets = new Insets(10,10,10,10);
 		c.gridx = 0;
-		c.gridy = 1;
-		p.add(b1,c);
-		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 4;
 		p.add(lab,c);
 		c.gridx = 0;
-		c.gridy = 4;
-		p.add(combo,c);
-		
+		c.gridy = 1;
+		p.add(fonts,c);
+		c.gridx = 0;
+		c.gridy = 2;
+		p.add(b1,c);
 		f.add(p);
 	}
 	
