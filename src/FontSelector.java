@@ -43,7 +43,12 @@ public class FontSelector {
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		p.setBackground(Color.GRAY);
 		
-		b1 = new JButton("Select");
+		b1 = new JButton("The quick brown fox jumped over the lazy dog’s back.",
+			"Pack my box with five dozen liquor jugs.","Jackdaws love my big sphinx of quartz.",
+			"Mr. Jock, TV quiz PhD, bags few lynx.","abcdefghijklmnopqrstuvwxyz","ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"01234567890","€†™´¸¢©¤°÷½¼¾>¡¿«‘’<¯µ ·¬ªº¶±£»®§­¹²³ß×™¨¥","ÀÁÂÃÄÅÆÇÈÉ ÊËÌÍÎÏÐÑÒÓÔ ÕÖØÙÚÛÜÝÞÿ",
+			"àáâãäåæçèé êëìíîïðñòóô õöøùúûüýþÿ","!#$%&'()*+,-./:;<=>?@[^_z{|}~",
+			"uvw wW gq9 2z 5s il17|!j oO08 `' ;:,. m nn rn {[()]}u");
 		lab = new JLabel("The quick brown fox jumped over the lazy dog’s back.");
 		lab.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		
