@@ -57,6 +57,9 @@ public class FontSelector {
 			+ "uvw wW gq9 2z 5s il17|!j oO08 `' ;:,. m nn rn {[()]}u");
 		lab = new JLabel("The quick brown fox jumped over the lazy dog’s back.");
 		lab.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		/** 
+ 		*System.out.println("The quick brown fox jumped over the lazy dog’s back\nPack my box with five dozen liquor jugs.\nJackdaws love my big sphinx of quartz.\nMr. Jock, TV quiz PhD, bags few lynx.\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n01234567890\n€†™´¸¢©¤°÷½¼¾>¡¿«‘’<¯µ ·¬ªº¶±£\"»®§­¹²³ß×™¨¥\nÀÁÂÃÄÅÆÇÈÉ ÊËÌÍÎÏÐÑÒÓÔ ÕÖØÙÚÛÜÝÞÿ\nàáâãäåæçèé êëìíîïðñòóô õöøùúûüýþÿ\n!\"#$%&'()*+,-./:;<=>?@[\\^_z{|}~\nuvw wW gq9 2z 5s il17|!j oO08 `\'\" ;:,. m nn rn {[()]}u");
+		*/
 		
 		
 		b1.addActionListener(new ActionListener(){
