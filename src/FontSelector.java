@@ -1,4 +1,7 @@
+package net.java.dev.designgridlayout;
+
 import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,15 +13,18 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Font;
 
 
+
 public class FontSelector { 
 	
-	private JFrame f;
+	private JFrame f; 
 	private JPanel p;
+	private JPanel tcolor;
 	private JButton b1;
 	private JLabel lab;
 	
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     JColorChooser txtChoose = new JColorChooser();
+    JColorChooser bacChoose = new JColorChooser();
     String swag = 
      		("The quick brown fox jumped over the lazy dog’s back."
      		 + "\nPack my box with five dozen liquor jugs."
@@ -74,13 +80,31 @@ public class FontSelector {
 		slide.setMinorTickSpacing(1);
 		slide.setPaintTicks(true);
 		slide.setPaintLabels(true);
-		p = new JPanel(new GridBagLayout());
-		p.setLayout(new GridLayout(3,3,10,10));
+		//removes preview panel
+		txtChoose.setPreviewPanel(new JPanel());
+
+		// removes recent panel
+		AbstractColorChooserPanel colorPanel = txtChoose.getChooserPanels()[0];
+		JPanel p = (JPanel) colorPanel.getComponent(0);
+		p.remove(2);
+		p.remove(1);
+		
+		// Retrieve the current set of panels
+		
+		
+		p = new JPanel();
+		tcolor = new JPanel();
+		
+		JTabbedPane tabbedPane = new JTabbedPane();
+		 tabbedPane.addTab("Cities",tcolor);
+		    tabbedPane.addTab("Colors", tcolor);
+		    tabbedPane.addTab("Flavors", tcolor);
+		    
+		
 		p.setBackground(Color.LIGHT_GRAY);
 		
-		b1 = new JButton("Click Here to See Font");
-		lab = new JLabel("The quick brown fox jumped over the lazy dog’s back.");
-		lab.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		
+
 		
 	    fonts.addListSelectionListener(new ListSelectionListener() {
 
@@ -100,9 +124,9 @@ public class FontSelector {
 	        text.setForeground(newForegroundColor);
 	      }
 	    };
+ 
 	    model.addChangeListener(changeListener);
-	    //slider text size
-	    
+	    //slider 
 	    slide.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent evt) {
 	          JSlider slider = (JSlider) evt.getSource();
@@ -114,11 +138,15 @@ public class FontSelector {
 	        }
 	      });
 		
+	    
 		p.add(scrollPane);
 		p.add(slide);
 		p.add(txtChoose);
 		p.add(txtScroll);
-		p.add(b1);
+		
+		
+		
+		f.add(tabbedPane);
 		f.add(p);
 	}
 	
