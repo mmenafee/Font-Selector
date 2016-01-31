@@ -16,9 +16,12 @@ import java.awt.Font;
 
 public class FontSelector { 
 	
-	private JFrame f; 
-	private JPanel p;
-	private JPanel tcolor;
+	private JFrame f;
+	private JTabbedPane tPane;
+	private JPanel preview;
+	private JPanel fPane;
+	private JPanel tColor;
+	private JPanel bColor;
 	private JButton b1;
 	private JLabel lab;
 	
@@ -52,6 +55,7 @@ public class FontSelector {
 	public FontSelector(){
 		gui();
 		fonts.setCellRenderer(new FontCellRenderer());
+		
 	}
 	
 	class FontCellRenderer extends DefaultListCellRenderer {
@@ -82,30 +86,21 @@ public class FontSelector {
 		slide.setPaintLabels(true);
 		//removes preview panel
 		txtChoose.setPreviewPanel(new JPanel());
-
-		// removes recent panel
-		AbstractColorChooserPanel colorPanel = txtChoose.getChooserPanels()[0];
-		JPanel p = (JPanel) colorPanel.getComponent(0);
-		p.remove(2);
-		p.remove(1);
+		bacChoose.setPreviewPanel(new JPanel());
+		preview = new JPanel();
+		fPane = new JPanel();
+		tColor = new JPanel();
+		bColor = new JPanel();
 		
-		// Retrieve the current set of panels
-		
-		
-		p = new JPanel();
-		tcolor = new JPanel();
-		
-		JTabbedPane tabbedPane = new JTabbedPane();
-		 tabbedPane.addTab("Cities",tcolor);
-		    tabbedPane.addTab("Colors", tcolor);
-		    tabbedPane.addTab("Flavors", tcolor);
-		    
-		
-		p.setBackground(Color.LIGHT_GRAY);
-		
-		
-
-		
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new BorderLayout());
+				
+		JTabbedPane tPane = new JTabbedPane();
+		 tPane.addTab("Font and Size", fPane);
+		    tPane.addTab("Text Color", tColor);
+		    tPane.addTab("Background Color", bColor);
+		    topPanel.add(tPane, BorderLayout.CENTER );
+		   
 	    fonts.addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent e) // value in list changes so example text does
@@ -124,8 +119,19 @@ public class FontSelector {
 	        text.setForeground(newForegroundColor);
 	      }
 	    };
+	    
+	    ColorSelectionModel bModel = bacChoose.getSelectionModel();
+	    //every color change
+	    ChangeListener bchangeListener = new ChangeListener() { 
+	      public void stateChanged(ChangeEvent changeEvent) {
+	        Color newBackgroundColor = bacChoose.getColor();
+	        text.setBackground(newBackgroundColor);
+	      }
+	    };
  
 	    model.addChangeListener(changeListener);
+	    bModel.addChangeListener(bchangeListener);
+	    
 	    //slider 
 	    slide.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent evt) {
@@ -139,19 +145,21 @@ public class FontSelector {
 	      });
 		
 	    
-		p.add(scrollPane);
-		p.add(slide);
-		p.add(txtChoose);
-		p.add(txtScroll);
+		fPane.add(scrollPane);
+		fPane.add(slide);
+		tColor.add(txtChoose);
+		bColor.add(bacChoose);
+		preview.add(txtScroll);
 		
 		
+		f.add(preview);
+		f.add(topPanel);
 		
-		f.add(tabbedPane);
-		f.add(p);
 	}
 	
 	public static void main(String[] args){
 		new FontSelector();
+		
 			
 	}
 	
