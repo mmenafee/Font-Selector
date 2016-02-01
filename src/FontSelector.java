@@ -8,7 +8,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*; 
-import java.awt.event.*; 
+import java.awt.event.*;
+import java.awt.font.TextAttribute;
 import java.awt.GraphicsEnvironment;
 import java.awt.Font;
 
@@ -46,8 +47,9 @@ public class FontSelector {
     JScrollPane txtScroll = new JScrollPane(text);
     String[] names = ge.getAvailableFontFamilyNames();
 	JList fonts = new JList(names);
-	JSlider slide = new JSlider(4,96,12);
+	JSlider slide = new JSlider(5,30,14);
 	JScrollPane scrollPane = new JScrollPane(fonts);
+	
 	
 	
 	
@@ -84,23 +86,67 @@ public class FontSelector {
 		slide.setMinorTickSpacing(1);
 		slide.setPaintTicks(true);
 		slide.setPaintLabels(true);
-		//removes preview panel
+		//removes preview panel in JColor Chooser
 		txtChoose.setPreviewPanel(new JPanel());
 		bacChoose.setPreviewPanel(new JPanel());
+		text.setSize(new Dimension(1000,1000));
 		preview = new JPanel();
 		fPane = new JPanel();
 		tColor = new JPanel();
 		bColor = new JPanel();
 		
+		final JRadioButton bold = new JRadioButton("Bold");
+	    final JRadioButton italic = new JRadioButton("Italic");
+
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout());
 				
 		JTabbedPane tPane = new JTabbedPane();
-		 tPane.addTab("Font and Size", fPane);
+		 tPane.addTab("Font,Size,Style", fPane);
 		    tPane.addTab("Text Color", tColor);
 		    tPane.addTab("Background Color", bColor);
 		    topPanel.add(tPane, BorderLayout.CENTER );
-		   
+		
+		    //item listeners for radio buttons
+		    italic.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent itemEvent) {
+		     
+		          int state = itemEvent.getStateChange();
+		          if (state == ItemEvent.SELECTED) {
+		        	  text.setFont(text.getFont().deriveFont(Font.ITALIC));
+		          }
+		          if (state == ItemEvent.SELECTED && bold.isSelected()){
+		        	  text.setFont(text.getFont().deriveFont(Font.BOLD | Font.ITALIC));
+		          }
+		          if (state == ItemEvent.DESELECTED && bold.isSelected()){
+		        	  text.setFont(text.getFont().deriveFont(Font.BOLD));
+		          }
+		          if(state == ItemEvent.DESELECTED){
+		        	  text.setFont(text.getFont().deriveFont(Font.PLAIN));
+		          }
+		        }
+		      });
+
+		    bold.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent itemEvent) {
+		     
+		          int state = itemEvent.getStateChange();
+		          if (state == ItemEvent.SELECTED) {
+		        	  text.setFont(text.getFont().deriveFont(Font.BOLD));
+		          }
+		          if (state == ItemEvent.SELECTED && italic.isSelected()){
+		        	  text.setFont(text.getFont().deriveFont(Font.BOLD | Font.ITALIC));
+		          }
+		          if (state == ItemEvent.DESELECTED && italic.isSelected()){
+		        	  text.setFont(text.getFont().deriveFont(Font.ITALIC));
+		          }
+		          if(state == ItemEvent.DESELECTED){
+		        	  text.setFont(text.getFont().deriveFont(Font.PLAIN));
+		          }
+		        }
+		      });
+		      
+		     //so with every selection the font changes
 	    fonts.addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent e) // value in list changes so example text does
@@ -147,13 +193,22 @@ public class FontSelector {
 	    
 		fPane.add(scrollPane);
 		fPane.add(slide);
+		fPane.add(bold);
+		fPane.add(italic);
 		tColor.add(txtChoose);
 		bColor.add(bacChoose);
 		preview.add(txtScroll);
 		
+		//add split pane for good ui
+		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		split.setTopComponent(preview);
+		split.setBottomComponent(topPanel);
+		split.setDividerLocation(0.5);
+		split.setResizeWeight(0.5);      
+
 		
-		f.add(preview);
-		f.add(topPanel);
+		f.add(split);
+	
 		
 	}
 	
